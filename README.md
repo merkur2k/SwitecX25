@@ -1,22 +1,22 @@
 Switec X25 library
 ==================
 
-This is an Arduino library for driving Switec X25 miniature 
+This is an mbed library for driving Switec X25 miniature
 stepper motors. It was written specifically for the Switec X25.168,
-and compatible steppers from other manufacturers including the 
+and compatible steppers from other manufacturers including the
 VID29 and MCR1108.
+
+This was ported from an [Arduino version](https://github.com/clearwater/SwitecX25).
 
 For more information including [datasheets](http://guy.carpenter.id.au/gaugette/resources) see the [Gaugette blog](http://guy.carpenter.id.au/gaugette/).
 
 Usage Notes
 -----------
-This library assumes you are driving the X25 directly from
-the Arduino IO lines, not through an intermediate controller circuit.
-A motor can be connected to any 4 Arduino digital output lines.
-The Arduino Uno has 14 I/O lines, limiting you to three motors.
-The Mega boards have more.
+This library assumes you are driving the X25 from any four IO lines,
+via an intermediate controller circuit (any dual H-bridge driver).
+A motor can be connected to any 4 digital output lines.
 
-The rate at which these miniature stepper motors 
+The rate at which these miniature stepper motors
 can accelerate is dependent upon the inertia
 of the needle you are using.  You may need to tune the acceleration
 tables in the library for your needle.
@@ -54,41 +54,26 @@ Using the Library
 
 // 315 degrees of range = 315x3 steps = 945 steps
 // declare motor1 with 945 steps on pins 4-7
-SwitecX25 motor1(315*3, 4,5,6,7);
+SwitecX25 motor1(315*3, P4,P5,P6,P7);
 
 // declare motor2 with 945 steps on pins 8-11
-SwitecX25 motor2(315*3, 8,9,10,11);
+SwitecX25 motor2(315*3, P8,P9,P10,P11);
 
-void setup(void) {
-  Serial.begin(9600);
-  Serial.println("Go!");
+printf("Go!\r\n");
 
-  // run both motors against stops to re-zero
-  motor1.zero();   // this is a slow, blocking operation
-  motor2.zero();  
-  motor1.setPosition(427);
-  motor2.setPosition(427);
-}
+// run both motors against stops to re-zero
+motor1.zero();   // this is a slow, blocking operation
+motor2.zero();  
+motor1.setPosition(427);
+motor2.setPosition(427);
 
-void loop(void) {
+void main(void) {
   // update motors frequently to allow them to step
   motor1.update();
   motor2.update();
 
-  // do stuff, call motorX.setPosition(step) to 
+  // do stuff, call motorX.setPosition(step) to
   // direct needle to new position.
 }
 
 ```
-
-
-
-
-
-
-
-
-
-
-
-

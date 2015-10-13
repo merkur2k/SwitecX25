@@ -18,7 +18,7 @@ class SwitecX25
    static const uint8_t pinCount = 4;
    static const uint8_t stateCount = 6;
    DigitalOut* pins[pinCount];
-   uint8_t currentState;    // 6 steps
+   uint8_t currentState;      // 6 steps
    uint16_t currentStep;      // step we are currently at
    uint16_t targetStep;       // target we are moving to
    uint16_t steps;            // total steps available

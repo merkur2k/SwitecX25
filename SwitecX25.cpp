@@ -11,7 +11,7 @@
 
 // During zeroing we will step the motor CCW
 // with a fixed step period defined by RESET_STEP_MICROSEC
-#define RESET_STEP_MICROSEC 1000
+#define RESET_STEP_MICROSEC 800
 
 // This table defines the acceleration curve.
 // 1st value is the speed step, 2nd value is delay in microseconds
@@ -120,11 +120,10 @@ void SwitecX25::advance()
   stepTimer.reset();
 
   // detect stopped state
-  if (currentStep==targetStep && vel<=1) {
+  if (currentStep==targetStep && vel==0) {
     stopped = true;
     dir = 0;
     vel = 0;
-    printf("STOPPED\r\n");
     return;
   }
 
